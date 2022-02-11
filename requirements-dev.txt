@@ -1,0 +1,2 @@
+eth-brownie==1.17.0
+dotmap
