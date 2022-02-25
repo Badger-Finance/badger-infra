@@ -49,7 +49,7 @@ def main():
     ]
 
     # NOTE: Add all authors from your network's registry. For example:
-    authors = [""]
+    authors = ["0xeE8b29AA52dD5fF2559da2C50b1887ADee257556"]
 
     # NOTE: Add the keys to all proxyAdmins from your network's registry paired to their owner
     proxyAdminOwners = [
@@ -96,7 +96,7 @@ def check_vaults_and_strategies(registry, proxyAdmin, authors):
     # Get strategies from vaults and check vaults' proxyAdmins
     for vault in vaults:
         try:
-            vaultContract = interface.ISettV4(vault)
+            vaultContract = interface.ISettV4h(vault)
             # get Controller
             controller = interface.IController(vaultContract.controller())
             strategies.append(controller.strategies(vaultContract.token()))
