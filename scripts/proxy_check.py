@@ -49,7 +49,7 @@ def main():
     ]
 
     # NOTE: Add all authors from your network's registry. For example:
-    authors = ["0xeE8b29AA52dD5fF2559da2C50b1887ADee257556"]
+    authors = [""]
 
     # NOTE: Add the keys to all proxyAdmins from your network's registry paired to their owner
     proxyAdminOwners = [
