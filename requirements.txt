@@ -1,0 +1,6 @@
+brownie-token-tester
+eth-brownie==1.17.0
+dotmap
+pandas
+rich
+tabulate
