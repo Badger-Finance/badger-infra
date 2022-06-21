@@ -13,7 +13,7 @@ def main(deployer_label=None):
         return EmissionsDripper.deploy(
             registry.eth.sett_vaults.remBADGER,
             timegm(date(2022, 4, 29).timetuple()),
-            int(timedelta(weeks=9).total_seconds()),
+            int(timedelta(weeks=99).total_seconds()),
             registry.eth.badger_wallets.techops_multisig,
             registry.eth.badger_wallets.dev_multisig,
             deployer,

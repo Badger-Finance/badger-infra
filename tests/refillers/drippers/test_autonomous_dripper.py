@@ -121,6 +121,7 @@ def test_perform_upkeep(dripper, badger, keeper):
 
 
 def test_perform_upkeep_multiple_tokens(dripper, badger, digg, keeper):
+    dripper.setAssetsWatchlist([badger, digg], {'from': dripper.owner()})
     badger._mint_for_testing(dripper, 100_000 * 10**badger.decimals())
     digg._mint_for_testing(dripper, 10 * 10**digg.decimals())
     chain.sleep(dripper.interval())

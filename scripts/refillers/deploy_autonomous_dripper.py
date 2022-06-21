@@ -13,13 +13,10 @@ def main(deployer_label=None):
         return AutonomousDripper.deploy(
             registry.eth.badger_wallets.techops_multisig, # address initialOwner
             registry.eth.badger_wallets.badgertree, # address beneficiaryAddress
-            timegm(date(2022, 5, 20).timetuple()), # uint64 startTimestamp
-            int(timedelta(weeks=6).total_seconds()), # uint64 durationSeconds
+            timegm(date(2022, 7, 1).timetuple()), # uint64 startTimestamp
+            int(timedelta(weeks=13).total_seconds()), # uint64 durationSeconds
             60*60*24*7, # uint intervalSeconds
-            [
-                registry.eth.treasury_tokens.BADGER,
-                registry.eth.treasury_tokens.DIGG,
-            ], # address[] memory watchlistAddresses
+            [registry.eth.treasury_tokens.BADGER], # address[] memory watchlistAddresses
             registry.eth.chainlink.keeper_registry, # address keeperRegistryAddress
             {'from': deployer},
             publish_source=on_live_network
