@@ -5,11 +5,10 @@ import "deps/@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable
 import "interfaces/badger/IBadgerRegistryV2.sol";
 
 /**
-RegistryAccessControl
-Written by Saj for BadgerDAO
+@title RegistryAccessControl
+@author Saj @ BadgerDAO
 
-Description:
-ACL proxy for the Badger Registry V2. This contract serves two purposes:
+@dev ACL proxy for the Badger Registry V2. This contract serves two purposes:
     - Allows for the addition/removal of experimental vaults to the Registry
     from a single address. Vaults indexed to this contract's address will be displayed on the
     UI as experimental. This is to avoid having to keep track of all deployer's addresses
@@ -18,12 +17,12 @@ ACL proxy for the Badger Registry V2. This contract serves two purposes:
     function as the Registry's "developer" actor - can promote to experimental and demote vaults
     in a quick fashion.
 
-NOTE: For promote() and demote() to work, this contract must be set as the "developer" on
+@notice: For promote() and demote() to work, this contract must be set as the "developer" on
 the Badger Registry V2.
 
 References:
 BadgerRegistry repo: https://github.com/Badger-Finance/badger-registry
-**/
+*/
 
 contract RegistryAccessControl is AccessControlUpgradeable {
     // Registery Roles
