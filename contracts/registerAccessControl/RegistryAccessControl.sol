@@ -17,7 +17,7 @@ import "interfaces/badger/IBadgerRegistryV2.sol";
     function as the Registry's "developer" actor - can promote to experimental and demote vaults
     in a quick fashion.
 
-@notice: For promote() and demote() to work, this contract must be set as the "developer" on
+@notice For promote() and demote() to work, this contract must be set as the "developer" on
 the Badger Registry V2.
 
 References:
