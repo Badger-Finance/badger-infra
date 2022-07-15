@@ -180,7 +180,7 @@ def test_permissions(deployer2, deployer, strategistGuild, governance, registry_
 
 
     ### RegistryACL not set as developer on Registry ###
-    
+
     registry_v2.setDeveloper(deployer, {"from": governance})
 
     # Promotions and demotions should fail
@@ -188,8 +188,4 @@ def test_permissions(deployer2, deployer, strategistGuild, governance, registry_
         registry_acl.demote(VAULT, 0, {"from": developers[0]})
     
     with brownie.reverts("Developer not set"):
-        registry_acl.promote(VAULT, "v1.5", "name=BTC-CVX,protocol=Badger,behavior=DCA", 1, {"from": developers[0]})
-
-
-
-    
+        registry_acl.promote(VAULT, "v1.5", "name=BTC-CVX,protocol=Badger,behavior=DCA", 1, {"from": developers[0]})    
