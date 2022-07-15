@@ -23,7 +23,8 @@ the Badger Registry V2.
 
 References:
 BadgerRegistry repo: https://github.com/Badger-Finance/badger-registry
-*/
+**/
+
 contract RegistryAccessControl is AccessControlUpgradeable {
     // Registery Roles
     bytes32 public constant DEVELOPER_ROLE = keccak256("DEVELOPER_ROLE");
