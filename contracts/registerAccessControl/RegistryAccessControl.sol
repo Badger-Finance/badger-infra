@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.12;
 
-import "deps/@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "deps/@openzeppelin/contracts/access/AccessControl.sol";
 import "interfaces/badger/IBadgerRegistryV2.sol";
 
 /**
@@ -24,16 +24,15 @@ References:
 BadgerRegistry repo: https://github.com/Badger-Finance/badger-registry
 */
 
-contract RegistryAccessControl is AccessControlUpgradeable {
+contract RegistryAccessControl is AccessControl {
     // Registery Roles
     bytes32 public constant DEVELOPER_ROLE = keccak256("DEVELOPER_ROLE");
 
     // Addresses
     IBadgerRegistryV2 public constant registry = IBadgerRegistryV2(0xdc602965F3e5f1e7BAf2446d5564b407d5113A06);
 
-    function initialize(address initialAdmin_) external initializer {
-        __AccessControl_init();
-        _setupRole(DEFAULT_ADMIN_ROLE, initialAdmin_);
+    constructor(address initialAdmin) public {
+        _setupRole(DEFAULT_ADMIN_ROLE, initialAdmin);
     }
 
     // ===== Permissioned Functions: Developer =====

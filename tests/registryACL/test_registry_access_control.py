@@ -31,10 +31,8 @@ def strategistGuild(registry_v2):
     return accounts.at(registry_v2.strategistGuild(), force=True)
 
 @pytest.fixture(scope='module')
-def registry_acl(deployer, strategistGuild, registry_v2):
-    contract = RegistryAccessControl.deploy({"from": deployer})
-    contract.initialize(strategistGuild.address, {"from": deployer})
-    return contract
+def registry_acl(deployer, strategistGuild):
+    return RegistryAccessControl.deploy(strategistGuild.address, {"from": deployer})
 
 @pytest.fixture(scope='module', autouse=True)
 def state_setup(governance, strategistGuild, deployer, deployer2, registry_acl, registry_v2):
@@ -177,4 +175,4 @@ def test_permissions(deployer2, deployer, strategistGuild, governance, registry_
         registry_acl.demote(VAULT, 0, {"from": developers[0]})
     
     with brownie.reverts("Developer not set"):
-        registry_acl.promote(VAULT, "v1.5", "name=BTC-CVX,protocol=Badger,behavior=DCA", 1, {"from": developers[0]})    
+        registry_acl.promote(VAULT, "v1.5", "name=BTC-CVX,protocol=Badger,behavior=DCA", 1, {"from": developers[0]})
