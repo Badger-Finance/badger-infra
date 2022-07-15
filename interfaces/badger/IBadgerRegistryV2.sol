@@ -40,6 +40,7 @@ interface IBadgerRegistryV2 {
 		VaultMetadata[] list;
 	}
 
+	function initialize(address newGovernance, address newStrategistGuild) external;
 	function setGovernance(address _newGov) external;
 	function setDeveloper(address newDev) external;
 	function setStrategistGuild(address newStrategistGuild) external;
@@ -49,6 +50,7 @@ interface IBadgerRegistryV2 {
 		string memory version,
 		string memory metadata
 	) external;
+	function remove(address vault) external;
 	function promote(
 		address vault,
 		string memory version,
@@ -61,7 +63,9 @@ interface IBadgerRegistryV2 {
 	function set(string memory key, address at) external;
 	function deleteKey(string memory key) external;
 	function deleteKeys(string[] memory _keys) external;
+	function governance() external view returns (address);
 	function developer() external view returns (address);
+	function strategistGuild() external view returns (address);
 	function get(string memory key) external view returns (address);
 	function keysCount() external view returns (uint256);
 	function getVaults(string memory version, address author) external view returns (VaultInfo[] memory);
