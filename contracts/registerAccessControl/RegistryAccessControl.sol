@@ -29,20 +29,11 @@ contract RegistryAccessControl is AccessControlUpgradeable {
     bytes32 public constant DEVELOPER_ROLE = keccak256("DEVELOPER_ROLE");
 
     // Addresses
-    IBadgerRegistryV2 public registry;
+    IBadgerRegistryV2 public constant registry = IBadgerRegistryV2(0xdc602965F3e5f1e7BAf2446d5564b407d5113A06);
 
-    function initialize(address initialAdmin_, address registry_) external initializer {
+    function initialize(address initialAdmin_) external initializer {
         __AccessControl_init();
         _setupRole(DEFAULT_ADMIN_ROLE, initialAdmin_);
-        registry = IBadgerRegistryV2(registry_);
-    }
-
-    // ===== Permissioned Functions: DEFAULT_ADMIN_ROLE =====
-
-    /// @dev Changes the address of the Registry
-    function setRegistry(address registry_) external {
-        require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "DEFAULT_ADMIN_ROLE");
-        registry = IBadgerRegistryV2(registry_);
     }
 
     // ===== Permissioned Functions: Developer =====

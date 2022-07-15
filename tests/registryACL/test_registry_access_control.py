@@ -33,7 +33,7 @@ def strategistGuild(registry_v2):
 @pytest.fixture(scope='module')
 def registry_acl(deployer, strategistGuild, registry_v2):
     contract = RegistryAccessControl.deploy({"from": deployer})
-    contract.initialize(strategistGuild.address, registry_v2.address, {"from": deployer})
+    contract.initialize(strategistGuild.address, {"from": deployer})
     return contract
 
 @pytest.fixture(scope='module', autouse=True)
@@ -167,17 +167,6 @@ def test_permissions(deployer2, deployer, strategistGuild, governance, registry_
         else:
             with brownie.reverts("AccessControl: sender must be an admin to grant"):
                 registry_acl.grantRole(role, rando.address, {"from": actor})
-
-    # setRegistry()
-    chain.snapshot()
-    for actor in actors:
-        if actor == strategistGuild:
-            registry_acl.setRegistry(RANDOM_ADDRESS, {"from": actor})
-            chain.revert()
-        else:
-            with brownie.reverts("DEFAULT_ADMIN_ROLE"):
-                registry_acl.setRegistry(RANDOM_ADDRESS, {"from": actor})
-
 
     ### RegistryACL not set as developer on Registry ###
 
