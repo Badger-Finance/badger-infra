@@ -38,6 +38,12 @@ contract RegistryAccessControl is AccessControlUpgradeable {
         registry.add(vault, version, metadata);
     }
 
+    /// @dev Remove the vault from this contract's address index
+    function remove(address vault) external {
+        require(hasRole(DEVELOPER_ROLE, msg.sender), "DEVELOPER_ROLE");
+        registry.remove(vault);
+    }
+
     /// @dev Promote a vault to Production on the Registry
     /// @notice Promote just means indexed by the Governance Address
     /// @notice Should this contract be set as the "developer" on the registry it will be able
