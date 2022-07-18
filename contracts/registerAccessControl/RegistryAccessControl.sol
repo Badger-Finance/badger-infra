@@ -65,7 +65,6 @@ contract RegistryAccessControl is AccessControl {
         IBadgerRegistryV2.VaultStatus status
     ) external {
         require(hasRole(DEVELOPER_ROLE, msg.sender), "DEVELOPER_ROLE");
-        require(registry.developer() == address(this), "Developer not set");
         registry.promote(vault, version, metadata, status);
     }
 
@@ -73,7 +72,6 @@ contract RegistryAccessControl is AccessControl {
     /// @notice This call will only work if this contract is set as the "developer" on the registry
     function demote(address vault, IBadgerRegistryV2.VaultStatus status) external {
         require(hasRole(DEVELOPER_ROLE, msg.sender), "DEVELOPER_ROLE");
-        require(registry.developer() == address(this), "Developer not set");
         registry.demote(vault, status);
     }
 }
