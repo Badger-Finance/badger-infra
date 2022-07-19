@@ -82,6 +82,18 @@ contract AutonomousDripper is VestingWallet, KeeperCompatibleInterface, Confirme
     }
 
     /**
+     * @dev Confirms that the `asset` given exists in `assetsWatchlist`.
+     */
+    function _assetWatched(address asset) internal view returns (bool) {
+        for (uint idx = 0; idx < assetsWatchlist.length; idx++) {
+            if (assetsWatchlist[idx] == asset) {
+                return true;
+            }
+        }
+    return false;
+    }
+
+    /**
      * @dev Runs off-chain at every block to determine if the `performUpkeep`
      * function should be called on-chain.
      */
@@ -105,7 +117,10 @@ contract AutonomousDripper is VestingWallet, KeeperCompatibleInterface, Confirme
             address[] memory assetsHeld = abi.decode(performData, (address[]));
             bool dripped = false;
             for (uint idx = 0; idx < assetsHeld.length; idx++) {
-                if (IERC20(assetsHeld[idx]).balanceOf(address(this)) > 0) {
+                if (
+                    _assetWatched(assetsHeld[idx]) &&
+                    IERC20(assetsHeld[idx]).balanceOf(address(this)) > 0
+                ) {
                     VestingWallet.release(assetsHeld[idx]);
                     dripped = true;
                 }
