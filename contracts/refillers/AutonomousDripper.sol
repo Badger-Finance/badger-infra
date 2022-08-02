@@ -85,7 +85,8 @@ contract AutonomousDripper is VestingWallet, KeeperCompatibleInterface, Confirme
      * @dev Confirms that the `asset` given exists in `assetsWatchlist`.
      */
     function _assetWatched(address asset) internal view returns (bool) {
-        for (uint idx = 0; idx < assetsWatchlist.length; idx++) {
+        uint256 numAssets = assetsWatchlist.length;
+        for (uint idx = 0; idx < numAssets; ++idx) {
             if (assetsWatchlist[idx] == asset) {
                 return true;
             }
