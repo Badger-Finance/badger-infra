@@ -14,7 +14,7 @@ def main(deployer_label=None):
             r.badger_wallets.techops_multisig,  # address initialOwner
             r.sett_vaults.remBADGER,  # address beneficiaryAddress
             timegm(date(2023, 1, 1).timetuple()),  # uint64 startTimestamp
-            int(timedelta(year=1).total_seconds()),  # uint64 durationSeconds
+            int(timedelta(days=365).total_seconds()),  # uint64 durationSeconds
             60 * 60 * 24 * 7,  # uint intervalSeconds
             [r.treasury_tokens.BADGER],  # address[] memory watchlistAddresses
             r.chainlink.keeper_registry,  # address keeperRegistryAddress
