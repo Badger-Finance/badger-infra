@@ -64,12 +64,16 @@ contract AutonomousDripper is VestingWallet, KeeperCompatibleInterface, Confirme
      */
     function _getAssetsHeld() internal view returns (address[] memory) {
         address[] memory _assetsHeld = new address[](assetsWatchlist.length);
-        uint256 count = 0;
-        for (uint idx = 0; idx < assetsWatchlist.length; idx++) {
+        uint256 count;
+        for (uint idx; idx < assetsWatchlist.length;) {
             uint256 balance = IERC20(assetsWatchlist[idx]).balanceOf(address(this));
             if (balance > 0) {
                 _assetsHeld[count] = assetsWatchlist[idx];
                 count++;
+            }
+
+            unchecked {
+                ++idx;
             }
         }
         if (count != assetsWatchlist.length) {
@@ -86,9 +90,13 @@ contract AutonomousDripper is VestingWallet, KeeperCompatibleInterface, Confirme
      */
     function _assetWatched(address asset) internal view returns (bool) {
         uint256 numAssets = assetsWatchlist.length;
-        for (uint idx = 0; idx < numAssets; ++idx) {
+        for (uint idx; idx < numAssets;) {
             if (assetsWatchlist[idx] == asset) {
                 return true;
+            }
+
+            unchecked {
+                ++idx;
             }
         }
         return false;
@@ -116,14 +124,18 @@ contract AutonomousDripper is VestingWallet, KeeperCompatibleInterface, Confirme
     function performUpkeep(bytes calldata performData) external override onlyKeeperRegistry whenNotPaused {
         if ((block.timestamp - lastTimestamp) > interval) {
             address[] memory assetsHeld = abi.decode(performData, (address[]));
-            bool dripped = false;
-            for (uint idx = 0; idx < assetsHeld.length; idx++) {
+            bool dripped;
+            for (uint idx; idx < assetsHeld.length;) {
                 if (
                     _assetWatched(assetsHeld[idx]) &&
                     IERC20(assetsHeld[idx]).balanceOf(address(this)) > 0
                 ) {
                     VestingWallet.release(assetsHeld[idx]);
                     dripped = true;
+                }
+
+                unchecked {
+                    ++idx;
                 }
             }
             if (dripped) {
